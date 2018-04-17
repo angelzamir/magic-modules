@@ -151,10 +151,14 @@ overrides: !ruby/object:Provider::ResourceOverrides
     exclude: true
   SslCertificate: !ruby/object:Provider::Terraform::ResourceOverride
     id_format: "{{name}}"
-    exclude: true
+    exclude: false
     properties:
       id: !ruby/object:Provider::Terraform::PropertyOverride
         exclude: true
+      certificate: !ruby/object:Provider::Terraform::PropertyOverride
+        sensitive: true
+      privateKey: !ruby/object:Provider::Terraform::PropertyOverride
+        sensitive: true
   Subnetwork: !ruby/object:Provider::Terraform::ResourceOverride
     id_format: "{{region}}/{{name}}"
     exclude: true
@@ -230,11 +234,6 @@ objects: !ruby/object:Api::Resource::HashArray
           check_interval_sec = 1
         }
         ```
-  SslCertificate:
-    sensitive:
-      - certificate
-      - privateKey
-    # TODO: Add support for missing features needed by this resource
 # This is for a list of example files.
 examples: !ruby/object:Api::Resource::HashArray
 
