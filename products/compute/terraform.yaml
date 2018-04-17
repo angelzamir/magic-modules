@@ -37,7 +37,7 @@ overrides: !ruby/object:Provider::ResourceOverrides
     exclude: true
   ForwardingRule: !ruby/object:Provider::Terraform::ResourceOverride
     id_format: "{{name}}"
-    exclude: false
+    exclude: true
     properties:
       id: !ruby/object:Provider::Terraform::PropertyOverride
         exclude: true
@@ -66,6 +66,18 @@ overrides: !ruby/object:Provider::ResourceOverrides
     properties:
       id: !ruby/object:Provider::Terraform::PropertyOverride
         exclude: true
+      checkIntervalSec: !ruby/object:Provider::Terraform::PropertyOverride
+        default_value: 5
+      healthyThreshold: !ruby/object:Provider::Terraform::PropertyOverride
+        default_value: 2
+      port: !ruby/object:Provider::Terraform::PropertyOverride
+        default_value: 80
+      requestPath: !ruby/object:Provider::Terraform::PropertyOverride
+        default_value: "/"
+      timeoutSec: !ruby/object:Provider::Terraform::PropertyOverride
+        default_value: 5
+      unhealthyThreshold: !ruby/object:Provider::Terraform::PropertyOverride
+        default_value: 2
   HttpsHealthCheck: !ruby/object:Provider::Terraform::ResourceOverride
     id_format: "{{name}}"
     description: |
@@ -79,6 +91,18 @@ overrides: !ruby/object:Provider::ResourceOverrides
     properties:
       id: !ruby/object:Provider::Terraform::PropertyOverride
         exclude: true
+      checkIntervalSec: !ruby/object:Provider::Terraform::PropertyOverride
+        default_value: 5
+      healthyThreshold: !ruby/object:Provider::Terraform::PropertyOverride
+        default_value: 2
+      port: !ruby/object:Provider::Terraform::PropertyOverride
+        default_value: 443
+      requestPath: !ruby/object:Provider::Terraform::PropertyOverride
+        default_value: "/"
+      timeoutSec: !ruby/object:Provider::Terraform::PropertyOverride
+        default_value: 5
+      unhealthyThreshold: !ruby/object:Provider::Terraform::PropertyOverride
+        default_value: 2
   HealthCheck: !ruby/object:Provider::Terraform::ResourceOverride
     id_format: "{{name}}"
     exclude: true
@@ -180,14 +204,8 @@ objects: !ruby/object:Api::Resource::HashArray
           location = "EU"
         }
         ```
+  # TODO: Get rid of this once #71 is merged.
   HttpHealthCheck:
-    default_values:
-      checkIntervalSec: 5
-      healthyThreshold: 2
-      port: 80
-      requestPath: "/"
-      timeoutSec: 5
-      unhealthyThreshold: 2
     documentation:
       examples: |
         ```hcl
@@ -199,14 +217,8 @@ objects: !ruby/object:Api::Resource::HashArray
           check_interval_sec = 1
         }
         ```
+  # TODO: Get rid of this once #71 is merged.
   HttpsHealthCheck:
-    default_values:
-      checkIntervalSec: 5
-      healthyThreshold: 2
-      port: 443
-      requestPath: "/"
-      timeoutSec: 5
-      unhealthyThreshold: 2
     documentation:
       examples: |
         ```hcl
